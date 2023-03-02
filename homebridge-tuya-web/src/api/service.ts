@@ -206,12 +206,12 @@ export class TuyaWebApi {
     if (data.responseStatus === "error") {
       if (data.errorMsg.includes("you cannot auth exceed once in")) {
         if (!retryingAfterError) {
-          this.log?.warn("Cannot acquire token, waiting ${this.authTokenWaitTime} seconds.");
+          this.log?.warn(`Cannot acquire token, waiting ${this.authTokenWaitTime} seconds.`);
           await delay(this.authTokenWaitTime * 1000);
           this.log?.info("Retrying authentication after previous error.");
           return this.getOrRefreshToken(true);
         } else {
-          this.log?.warn("Got again auth error, even after delaying for {this.authTokenWaitTime * 1000} seconds.");
+          this.log?.warn(`Got again auth error, even after delaying for ${this.authTokenWaitTime} seconds.`);
           throw new AuthenticationError(data.errorMsg);
         }
       } else {

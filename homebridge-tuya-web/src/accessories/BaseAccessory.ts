@@ -164,7 +164,8 @@ export abstract class BaseAccessory {
       this.log.debug("Creating New Service %s", this.deviceConfig.id);
       this.service = homebridgeAccessory.addService(
         this.serviceType,
-        this.deviceConfig.name
+        this.deviceConfig.name,
+        this.platform.generateUUID(this.service)
       );
     }
 
@@ -361,7 +362,7 @@ export abstract class BaseAccessory {
    * @param payload
    * @param cache tuya value to store in the cache
    */
-  public async setDeviceState<Method extends TuyaApiMethod, T>(
+  public async setDeviceState<Method extends TuyaApiMethod, T extends DeviceState>(
     method: Method,
     payload: TuyaApiPayload<Method>,
     cache: T
